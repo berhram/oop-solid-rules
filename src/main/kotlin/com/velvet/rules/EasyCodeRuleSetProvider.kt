@@ -1,13 +1,11 @@
 package com.velvet.rules
 
-import com.pinterest.ktlint.core.RuleProvider
-import com.pinterest.ktlint.core.RuleSetProviderV2
+import com.pinterest.ktlint.core.Rule
 
-class EasyCodeRuleSetProvider : RuleSetProviderV2("easycode-rules", NO_ABOUT) {
+class EasyCodeRuleSetProvider : AbstractRuleSetProvider("oop-solid-rules", NO_ABOUT) {
 
-    override fun getRuleProviders(): Set<RuleProvider> = setOf(
-        RuleProvider {
-            EncapsulationRule()
-        }
+    override val rules: Set<Rule> = setOf(
+        EncapsulationRule(),
+        InheritanceRule()
     )
 }
