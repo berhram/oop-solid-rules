@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.lexer.KtModifierKeywordToken
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
+import org.jetbrains.kotlin.psi.psiUtil.isAbstract
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 import org.jetbrains.kotlin.psi.psiUtil.visibilityModifierTypeOrDefault
 
@@ -15,22 +16,39 @@ class EncapsulationRule : Rule("encapsulation-rule") {
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
         if (node.psi is KtClass) {
-            val properties = (node.psi as KtClass).getProperties()
-            val constructor = (node.psi as KtClass).primaryConstructor
+            val clazz = node.psi as KtClass
+            val properties = clazz.getProperties()
+            val constructor = clazz.primaryConstructor
+            val classCanBeInherited =
+                clazz.isEnum() || clazz.isSealed() || clazz.hasModifier(KtTokens.OPEN_KEYWORD) || clazz.isAbstract()
             properties.forEach {
-                if (it.visibilityModifierTypeOrDefault().isViolating()) {
+                val visibility = it.visibilityModifierTypeOrDefault()
+                if (visibility.isPublicOrInternal() && classCanBeInherited) {
                     emit(
                         it.startOffset,
                         "Property ${it.name} must be private or protected",
                         false
                     )
+                } else if ((visibility.isPublicOrInternal() && !classCanBeInherited) || (visibility.isProtected() && !classCanBeInherited)) {
+                    emit(
+                        it.startOffset,
+                        "Property ${it.name} must be private, because class can't be inherited",
+                        false
+                    )
                 }
             }
-            constructor?.valueParameters?.filter { it.hasValOrVar() }?.forEach { param ->
-                if (param.visibilityModifierTypeOrDefault().isViolating()) {
+            constructor?.valueParameters?.filter { it.hasValOrVar() }?.forEach {
+                val visibility = it.visibilityModifierTypeOrDefault()
+                if (visibility.isPublicOrInternal() && classCanBeInherited) {
                     emit(
-                        param.startOffset,
-                        "Constructor argument ${param.name} must be private or protected",
+                        it.startOffset,
+                        "Constructor argument ${it.name} must be private or protected",
+                        false
+                    )
+                } else if ((visibility.isPublicOrInternal() && !classCanBeInherited) || (visibility.isProtected() && !classCanBeInherited)) {
+                    emit(
+                        it.startOffset,
+                        "Constructor argument ${it.name} must be private, because class can't be inherited",
                         false
                     )
                 }
@@ -38,6 +56,8 @@ class EncapsulationRule : Rule("encapsulation-rule") {
         }
     }
 
-    private fun KtModifierKeywordToken.isViolating() =
+    private fun KtModifierKeywordToken.isPublicOrInternal() =
         this == KtTokens.PUBLIC_KEYWORD || this == KtTokens.INTERNAL_KEYWORD
+
+    private fun KtModifierKeywordToken.isProtected() = this == KtTokens.PROTECTED_KEYWORD
 }
