@@ -18,7 +18,7 @@ class EncapsulationRule : Rule("encapsulation-rule") {
         if (node.psi is KtClass) {
             val clazz = node.psi as KtClass
             val properties = clazz.getProperties()
-            val constructor = clazz.primaryConstructor
+            val parameters = clazz.primaryConstructor?.valueParameters?.filter { it.hasValOrVar() }
             val classCanBeInherited =
                 clazz.isEnum() || clazz.isSealed() || clazz.hasModifier(KtTokens.OPEN_KEYWORD) || clazz.isAbstract()
             properties.forEach {
@@ -26,29 +26,29 @@ class EncapsulationRule : Rule("encapsulation-rule") {
                 if (visibility.isPublicOrInternal() && classCanBeInherited) {
                     emit(
                         it.startOffset,
-                        "Property ${it.name} must be private or protected",
+                        "The property ${it.name} must be private or protected",
                         false
                     )
                 } else if ((visibility.isPublicOrInternal() && !classCanBeInherited) || (visibility.isProtected() && !classCanBeInherited)) {
                     emit(
                         it.startOffset,
-                        "Property ${it.name} must be private, because class can't be inherited",
+                        "The property ${it.name} must be private, because class can't be inherited",
                         false
                     )
                 }
             }
-            constructor?.valueParameters?.filter { it.hasValOrVar() }?.forEach {
+            parameters?.forEach {
                 val visibility = it.visibilityModifierTypeOrDefault()
                 if (visibility.isPublicOrInternal() && classCanBeInherited) {
                     emit(
                         it.startOffset,
-                        "Constructor argument ${it.name} must be private or protected",
+                        "The constructor argument ${it.name} must be private or protected",
                         false
                     )
                 } else if ((visibility.isPublicOrInternal() && !classCanBeInherited) || (visibility.isProtected() && !classCanBeInherited)) {
                     emit(
                         it.startOffset,
-                        "Constructor argument ${it.name} must be private, because class can't be inherited",
+                        "The constructor argument ${it.name} must be private, because class can't be inherited",
                         false
                     )
                 }
