@@ -17,6 +17,6 @@ abstract class BaseTest(rule: Rule) {
 
     protected fun assertLintErrors(@Language("kotlin") code: String) {
         val errors = provider.lint(code.trimIndent())
-        assertTrue(errors.isNotEmpty(), errors.toString())
+        assertTrue(errors.isNotEmpty())
     }
 }

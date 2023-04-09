@@ -2,7 +2,6 @@ package com.velvet.rules
 
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.psiUtil.isAbstract
-import org.jetbrains.kotlin.psi.psiUtil.parents
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
 class InheritanceRule : AbstractRule("inheritance-rule") {
@@ -16,27 +15,23 @@ class InheritanceRule : AbstractRule("inheritance-rule") {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        node.psi.classOrNull()?.let {
-            if (!it.canBeParent()) {
-                if (it.superTypeListEntries.isEmpty()) {
+        node.psi.classOrNull()?.apply {
+            if (superTypeListEntries.isEmpty()) {
+                if (!canBeParent()) {
                     emit(
-                        it.startOffset,
-                        "The class ${it.name} must have been inherited",
+                        startOffset,
+                        "The class $name must have been inherited",
                         false
                     )
-                } else {
-                    it.parent.classOrNull()?.let { parent ->
-                        if (
-                            it.isAbstract() &&
-                            parent.isAbstract()
-                            && !allowedAbstractClassesInheritedFrom.contains(parent.name)
-                        ) {
-                            emit(
-                                it.startOffset,
-                                "The class is abstract and is inherited from an abstract class",
-                                false
-                            )
-                        }
+                }
+            } else {
+                superTypeListEntries.firstNotNullOfOrNull { element -> element.classOrNull() }?.let { parent ->
+                    if (isAbstract() && parent.isAbstract()) {
+                        emit(
+                            startOffset,
+                            "The class is abstract and is inherited from an abstract class",
+                            false
+                        )
                     }
                 }
             }

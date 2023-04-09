@@ -57,4 +57,17 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
             """
         )
     }
+
+    @Test
+    fun `no passed if abstract inherits abstract`() {
+        assertLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                abstract class AbstractRepository
+
+                abstract class AnotherAR : AbstractRepository()
+            """
+        )
+    }
 }

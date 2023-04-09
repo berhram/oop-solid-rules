@@ -13,8 +13,8 @@ abstract class AbstractRule(id: String) : Rule(id) {
 
     protected fun KtModifierKeywordToken.isProtected() = this == KtTokens.PROTECTED_KEYWORD
 
-    protected fun PsiElement.classOrNull(): KtClass? = if (this is KtClass && !this.isInterface()) this else null
+    protected fun PsiElement.classOrNull(): KtClass? = if (this is KtClass && !isInterface()) this else null
 
     protected fun KtClass.canBeParent() =
-        this.isEnum() || this.isSealed() || this.hasModifier(KtTokens.OPEN_KEYWORD) || this.hasModifier(KtTokens.ABSTRACT_KEYWORD)
+        isEnum() || isSealed() || hasModifier(KtTokens.OPEN_KEYWORD) || hasModifier(KtTokens.ABSTRACT_KEYWORD)
 }
