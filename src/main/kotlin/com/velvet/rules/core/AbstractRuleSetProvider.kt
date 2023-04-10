@@ -1,4 +1,4 @@
-package com.velvet.rules
+package com.velvet.rules.core
 
 import com.pinterest.ktlint.core.Rule
 import com.pinterest.ktlint.core.RuleProvider

@@ -1,5 +1,9 @@
 package com.velvet.rules
 
+import com.velvet.rules.core.AbstractRule
+import com.velvet.rules.core.canBeParent
+import com.velvet.rules.core.isProtected
+import com.velvet.rules.core.isPublicOrInternal
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 import org.jetbrains.kotlin.psi.psiUtil.visibilityModifierTypeOrDefault
