@@ -1,38 +1,35 @@
 package com.velvet.rules
 
-import org.jetbrains.kotlin.com.intellij.lang.ASTNode
-import org.jetbrains.kotlin.psi.psiUtil.isAbstract
+import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
 class InheritanceRule : AbstractRule("inheritance-rule") {
 
-    private val allowedAbstractClassesInheritedFrom = listOf(
+    private val allowedClasses = listOf(
         "Fragment", "Activity"
     )
 
-    override fun beforeVisitChildNodes(
-        node: ASTNode,
+    override fun visitClass(
+        ktClass: KtClass,
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        node.psi.classOrNull()?.apply {
-            if (superTypeListEntries.isEmpty()) {
-                if (!canBeParent()) {
+        if (ktClass.superTypeListEntries.isEmpty()) {
+            if (!ktClass.canBeParent()) {
+                emit(
+                    ktClass.startOffset,
+                    "The class ${ktClass.name} must have been inherited",
+                    false
+                )
+            }
+        } else {
+            ktClass.superTypeListEntries.firstOrNull { it.typeReference?.hasParentheses() == true }?.let {
+                if (ktClass.isAbstractClass() && !allowedClasses.contains(it.name)) {
                     emit(
-                        startOffset,
-                        "The class $name must have been inherited",
+                        ktClass.startOffset,
+                        "The class ${ktClass.name} should not been inherited from another class",
                         false
                     )
-                }
-            } else {
-                superTypeListEntries.firstNotNullOfOrNull { element -> element.classOrNull() }?.let { parent ->
-                    if (isAbstract() && parent.isAbstract()) {
-                        emit(
-                            startOffset,
-                            "The class is abstract and is inherited from an abstract class",
-                            false
-                        )
-                    }
                 }
             }
         }
