@@ -12,15 +12,20 @@ abstract class AbstractRule(id: String) : Rule(id) {
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) = Unit
 
+    open fun visitInterface(
+        ktClass: KtClass,
+        autoCorrect: Boolean,
+        emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
+    ) = Unit
+
     override fun beforeVisitChildNodes(
         node: ASTNode,
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        val psi = node.psi
-        val ktClass: KtClass? = if (psi is KtClass && !psi.isInterface()) psi else null
-        ktClass?.let {
-            visitClass(it, autoCorrect, emit)
+        (node.psi as? KtClass)?.let {
+            if (it.isInterface()) visitInterface(it, autoCorrect, emit)
+            else visitClass(it, autoCorrect, emit)
         }
     }
 }
