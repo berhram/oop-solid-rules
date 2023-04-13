@@ -27,6 +27,8 @@ class DependencyRuleTest : BaseTest(DependencyRule()) {
     fun `invalid delegated`() {
         assertLintErrors(
             """
+                package com.velvet.rules
+
                 class Person(val id: String) {
     
                     val isAdult by lazy { AtomicBoolean() }
@@ -39,6 +41,8 @@ class DependencyRuleTest : BaseTest(DependencyRule()) {
     fun `invalid constructor`() {
         assertLintErrors(
             """
+                package com.velvet.rules                
+
                 class Person(val id: String) {
     
                     val isAdult = AtomicBoolean()

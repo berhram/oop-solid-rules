@@ -6,10 +6,10 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-//TODO grammar
 class FunctionsRule : AbstractRule("functions-rule") {
 
     private val allowedMembers = 5
+
     private val retrofitAnnotation = listOf(
         "retrofit2.http.HTTP",
         "retrofit2.http.GET",

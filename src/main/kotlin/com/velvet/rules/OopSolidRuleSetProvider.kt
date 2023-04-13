@@ -8,6 +8,8 @@ class OopSolidRuleSetProvider : AbstractRuleSetProvider("oop-solid-rules", NO_AB
     override val rules: Set<Rule> = setOf(
         EncapsulationRule(),
         InheritanceRule(),
-        OopOnlyClassesRule()
+        OopOnlyClassesRule(),
+        FunctionsRule(),
+        DependencyRule()
     )
 }

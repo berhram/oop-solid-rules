@@ -9,6 +9,8 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     fun `invalid when sealed`() {
         assertLintErrors(
             """
+                package com.velvet.rules
+
                 sealed class Person {
     
                     object John : Person()
@@ -21,6 +23,8 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     fun `invalid when enum`() {
         assertLintErrors(
             """
+                package com.velvet.rules
+
                 enum class Person {
     
                     JOHN, NICK
@@ -33,15 +37,19 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     fun `invalid when open`() {
         assertLintErrors(
             """
+                package com.velvet.rules
+
                 open class Person
             """
         )
     }
 
     @Test
-    fun `valid`() {
+    fun valid() {
         assertNoLintErrors(
             """
+                package com.velvet.rules
+
                 class Person
             """
         )
