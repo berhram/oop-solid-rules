@@ -12,7 +12,7 @@ class DependencyRule : AbstractRule("dependency-rule") {
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
         ktClass.getProperties().forEach {
-            if (it.hasDelegateExpressionOrInitializer()) {
+            if (it.hasInitializer() || it.hasDelegate()) {
                 emit(
                     it.startOffset,
                     "The ${it.name} property must not be created in class",
