@@ -32,7 +32,7 @@ class FunctionsRule : AbstractRule("functions-rule") {
             if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD)) {
                 emit(
                     it.startOffset,
-                    "The fun ${it.name} must be overridden from interface",
+                    "You must override the ${it.name} from the interface",
                     false
                 )
             }
@@ -48,14 +48,14 @@ class FunctionsRule : AbstractRule("functions-rule") {
         if (functions.size > allowedMembers) {
             emit(
                 ktClass.startOffset,
-                "The interface ${ktClass.name} must not contains more than $allowedMembers fun",
+                "The ${ktClass.name} interface must not contain more than $allowedMembers fun",
                 false
             )
         }
         functions.forEach {
             if (it.bodyExpression != null) {
                 emit(
-                    it.startOffset, "The fun ${it.name} must not have default implementation", false
+                    it.startOffset, "The fun ${it.name} must not have a default implementation", false
                 )
             }
             if (it.valueParameters.size > allowedMembers && !it.annotations.any { annot -> annot.text in retrofitAnnotation }) {

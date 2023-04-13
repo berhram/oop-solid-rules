@@ -15,7 +15,7 @@ class DependencyRule : AbstractRule("dependency-rule") {
             if (it.hasInitializer() || it.hasDelegate()) {
                 emit(
                     it.startOffset,
-                    "The ${it.name} property must not be created in class",
+                    "You must not create the ${it.name} property within the class",
                     false
                 )
             }

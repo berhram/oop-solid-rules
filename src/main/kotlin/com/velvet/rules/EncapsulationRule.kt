@@ -22,13 +22,13 @@ class EncapsulationRule : AbstractRule("encapsulation-rule") {
             if (visibility.isPublicOrInternal() && ktClass.canBeParent()) {
                 emit(
                     it.startOffset,
-                    "The property ${it.name} must be private or protected",
+                    "The ${it.name} property must be private or protected",
                     false
                 )
             } else if (visibility.isPublicOrInternal() || (visibility.isProtected() && !ktClass.canBeParent())) {
                 emit(
                     it.startOffset,
-                    "The property ${it.name} must be private",
+                    "The ${it.name} property must be private",
                     false
                 )
             }

@@ -21,7 +21,7 @@ class InheritanceRule : AbstractRule("inheritance-rule") {
             if (!ktClass.canBeParent()) {
                 emit(
                     ktClass.startOffset,
-                    "The class ${ktClass.name} must have been inherited",
+                    "The class ${ktClass.name} must be inherited",
                     false
                 )
             }
@@ -30,7 +30,7 @@ class InheritanceRule : AbstractRule("inheritance-rule") {
                 if (ktClass.isAbstractClass() && !allowedClasses.contains(it.name)) {
                     emit(
                         ktClass.startOffset,
-                        "The class ${ktClass.name} should not been inherited from another class",
+                        "The class ${ktClass.name} should not be inherited from another class",
                         false
                     )
                 }
