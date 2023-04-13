@@ -1,0 +1,21 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: build rules
+        run: ./gradlew jar
+      - name: rename jar
+        run: mv build/libs/oop-solid-rules.jar oop-solid-rules${{ github.ref_name }}.jar
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          files: oop-solid-rules${{ github.ref_name }}.jar

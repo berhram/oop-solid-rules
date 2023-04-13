@@ -1,16 +1,16 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id "org.jetbrains.kotlin.jvm" version "1.8.20"
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = "com.velvet.rules"
+version = "v0.1"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation "org.jetbrains.kotlin:kotlin-test"
     implementation "com.pinterest.ktlint:ktlint-core:0.48.2"
     testImplementation "com.pinterest.ktlint:ktlint-test:0.48.2"
 }
@@ -22,3 +22,5 @@ test {
 kotlin {
     jvmToolchain(11)
 }
+
+jar.archiveFileName = "oop-solid-rules.jar"
