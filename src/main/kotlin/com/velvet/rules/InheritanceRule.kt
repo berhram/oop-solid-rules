@@ -20,14 +20,14 @@ class InheritanceRule : AbstractRule("inheritance-rule") {
         if (ktClass.superTypeListEntries.isEmpty()) {
             if (!ktClass.canBeParent()) {
                 emit(
-                    ktClass.startOffset,
-                    "The class ${ktClass.name} must be inherited",
-                    false
+                    ktClass.startOffset, "The class ${ktClass.name} must be inherited", false
                 )
             }
         } else {
-            ktClass.superTypeListEntries.firstOrNull { it.typeReference?.hasParentheses() == true }?.let {
-                if (ktClass.isAbstractClass() && !allowedClasses.contains(it.name)) {
+            ktClass.superTypeListEntries.firstOrNull {
+                it.typeReference?.typeElement != null
+            }?.let {
+                if (ktClass.isAbstractClass() && !allowedClasses.any { allowedClass -> it.name?.contains(allowedClass) == true }) {
                     emit(
                         ktClass.startOffset,
                         "The class ${ktClass.name} should not be inherited from another class",

@@ -12,14 +12,7 @@ class FunctionsRule : AbstractRule("functions-rule") {
     private val allowedMembers = 5
 
     private val retrofitAnnotation = listOf(
-        "retrofit2.http.HTTP",
-        "retrofit2.http.GET",
-        "retrofit2.http.POST",
-        "retrofit2.http.PUT",
-        "retrofit2.http.PATCH",
-        "retrofit2.http.DELETE",
-        "retrofit2.http.OPTIONS",
-        "retrofit2.http.HEAD"
+        "HTTP", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"
     )
 
     override fun visitClass(
@@ -31,9 +24,7 @@ class FunctionsRule : AbstractRule("functions-rule") {
         functions.forEach {
             if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD)) {
                 emit(
-                    it.startOffset,
-                    "You must override the ${it.name} from the interface",
-                    false
+                    it.startOffset, "You must override the ${it.name} from the interface", false
                 )
             }
         }
@@ -58,7 +49,9 @@ class FunctionsRule : AbstractRule("functions-rule") {
                     it.startOffset, "The fun ${it.name} must not have a default implementation", false
                 )
             }
-            if (it.valueParameters.size > allowedMembers && !it.annotations.any { annot -> annot.text in retrofitAnnotation }) {
+            if (it.valueParameters.size > allowedMembers && !it.annotationEntries.any { annot ->
+                    annot.typeReference?.text in retrofitAnnotation
+                }) {
                 emit(
                     it.startOffset, "The fun ${it.name} must not have more than 5 args", false
                 )
