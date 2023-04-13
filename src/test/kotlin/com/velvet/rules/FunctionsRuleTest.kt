@@ -57,7 +57,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
     }
 
     @Test
-    fun `invalid override method in class`() {
+    fun `valid override method in class`() {
         assertNoLintErrors(
             """
                 package com.velvet.rules
