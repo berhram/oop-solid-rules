@@ -14,8 +14,8 @@ jobs:
       - name: build rules
         run: ./gradlew jar
       - name: rename jar
-        run: mv build/libs/oop-solid-rules.jar oop-solid-rules${{ github.ref_name }}.jar
+        run: mv build/libs/oop-solid-rules.jar oop-solid-rules-${{ github.ref_name }}.jar
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
         with:
-          files: oop-solid-rules${{ github.ref_name }}.jar
+          files: oop-solid-rules-${{ github.ref_name }}.jar
