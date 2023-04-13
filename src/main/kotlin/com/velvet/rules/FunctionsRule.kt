@@ -3,6 +3,7 @@ package com.velvet.rules
 import com.velvet.rules.core.AbstractRule
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
+import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
@@ -26,7 +27,7 @@ class FunctionsRule : AbstractRule("functions-rule") {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        val functions = ktClass.children.mapNotNull { it as? KtNamedFunction }
+        val functions = ktClass.declarations.mapNotNull { it as? KtNamedFunction }
         functions.forEach {
             if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD)) {
                 emit(
@@ -43,7 +44,7 @@ class FunctionsRule : AbstractRule("functions-rule") {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        val functions = ktClass.children.mapNotNull { it as? KtNamedFunction }
+        val functions = ktClass.declarations.mapNotNull { it as? KtFunction }
         if (functions.size > allowedMembers) {
             emit(
                 ktClass.startOffset,
@@ -57,7 +58,7 @@ class FunctionsRule : AbstractRule("functions-rule") {
                     it.startOffset, "The fun ${it.name} must not have default implementation", false
                 )
             }
-            if (it.valueParameters.size > allowedMembers && it.annotations.any { annot -> annot.text in retrofitAnnotation }) {
+            if (it.valueParameters.size > allowedMembers && !it.annotations.any { annot -> annot.text in retrofitAnnotation }) {
                 emit(
                     it.startOffset, "The fun ${it.name} must not have more than 5 args", false
                 )
