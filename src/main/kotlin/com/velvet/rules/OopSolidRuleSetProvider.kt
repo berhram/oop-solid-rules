@@ -9,7 +9,6 @@ class OopSolidRuleSetProvider : AbstractRuleSetProvider("oop-solid-rules", NO_AB
         EncapsulationRule(),
         InheritanceRule(),
         OopOnlyClassesRule(),
-        FunctionsRule(),
-        DependencyRule()
+        FunctionsRule()
     )
 }
