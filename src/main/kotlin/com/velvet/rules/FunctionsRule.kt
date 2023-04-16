@@ -15,6 +15,10 @@ class FunctionsRule : AbstractRule("functions-rule") {
         "HTTP", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"
     )
 
+    private val testAnnotation = listOf(
+        "Test", "Before", "After"
+    )
+
     override fun visitClass(
         ktClass: KtClass,
         autoCorrect: Boolean,
@@ -22,7 +26,9 @@ class FunctionsRule : AbstractRule("functions-rule") {
     ) {
         val functions = ktClass.declarations.mapNotNull { it as? KtNamedFunction }
         functions.forEach {
-            if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD)) {
+            if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD) && !it.annotationEntries.any { annot ->
+                    annot.typeReference?.text in testAnnotation
+                }) {
                 emit(
                     it.startOffset, "You must override the ${it.name} from the interface", false
                 )

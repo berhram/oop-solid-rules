@@ -107,6 +107,27 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
     }
 
     @Test
+    fun `valid because test`() {
+        assertNoLintErrors(
+            """
+                package com.velvet.rules
+
+                class PersonTest {
+                
+                    @Before   
+                    fun helloBefore() {}
+
+                    @After
+                    fun helloAfter() {}
+                    
+                    @Test
+                    fun hello(a: String) {}
+                }
+            """
+        )
+    }
+
+    @Test
     fun `valid no too many args in fun because retrofit`() {
         assertNoLintErrors(
             """
