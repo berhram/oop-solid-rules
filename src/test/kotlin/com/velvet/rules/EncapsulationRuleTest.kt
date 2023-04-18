@@ -18,6 +18,20 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
     }
 
     @Test
+    fun `passed because override`() {
+        assertNoLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                class Repository(override val dataSource: DataSource) {
+
+                    override var page: Int = 0
+                }
+            """
+        )
+    }
+
+    @Test
     fun `passed one private one protected`() {
         assertNoLintErrors(
             """
