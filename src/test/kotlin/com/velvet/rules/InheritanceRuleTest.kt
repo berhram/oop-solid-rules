@@ -72,6 +72,17 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
     }
 
     @Test
+    fun `passed because test`() {
+        assertNoLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                class RepositoryTest
+            """
+        )
+    }
+
+    @Test
     fun `no passed`() {
         assertLintErrors(
             """

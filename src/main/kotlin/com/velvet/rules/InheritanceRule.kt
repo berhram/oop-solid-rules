@@ -18,7 +18,7 @@ class InheritanceRule : AbstractRule("inheritance-rule") {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        if (ktClass.superTypeListEntries.isEmpty()) {
+        if (ktClass.superTypeListEntries.isEmpty() && ktClass.name?.endsWith("Test") == false) {
             if (!ktClass.canBeParent()) {
                 emit(
                     ktClass.startOffset, "The class ${ktClass.name} must be inherited", false
