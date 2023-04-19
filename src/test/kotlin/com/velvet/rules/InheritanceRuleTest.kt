@@ -48,6 +48,30 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
     }
 
     @Test
+    fun `passed when abstract inherits allowed class`() {
+        assertNoLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                abstract class BaseNavFragment : BaseFragment()
+            """
+        )
+    }
+
+    @Test
+    fun `passed when abstract inherits interface`() {
+        assertNoLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                interface Repository
+
+                abstract class AnotherAR : Repository
+            """
+        )
+    }
+
+    @Test
     fun `no passed`() {
         assertLintErrors(
             """
