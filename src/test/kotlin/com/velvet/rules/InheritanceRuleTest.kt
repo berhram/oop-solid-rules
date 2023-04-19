@@ -48,12 +48,33 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
     }
 
     @Test
+    fun `passed when args`() {
+        assertNoLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                abstract class SomeClass(a: String, b: Boolean)
+
+                class Repository(a: String, b: Boolean) : SomeClass(a, b)
+            """
+        )
+    }
+
+    @Test
     fun `passed when abstract inherits allowed class`() {
         assertNoLintErrors(
             """
                 package com.github.johnnysc.practicetdd
 
-                abstract class BaseNavFragment : BaseFragment()
+                abstract class BaseFragment : Fragment()
+
+                abstract class BaseView(a: String, b: Boolean) : View(a,b)
+
+                abstract class BaseViewGroup : ViewGroup()
+
+                abstract class BaseActivity : Activity()
+
+                abstract class BaseViewModel : ViewModel()
             """
         )
     }
@@ -102,6 +123,19 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class AbstractRepository
 
                 abstract class AnotherAR : AbstractRepository()
+
+                abstract class AnotherBaseFragment : BaseFragment()
+            """
+        )
+    }
+
+    @Test
+    fun `no passed if abstract inherits abstract 2`() {
+        assertLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                abstract class AnotherBaseFragment : BaseFragment()
             """
         )
     }
