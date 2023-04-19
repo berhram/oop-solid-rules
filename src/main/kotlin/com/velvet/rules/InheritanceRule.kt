@@ -10,7 +10,7 @@ import org.jetbrains.kotlin.psi.psiUtil.startOffset
 class InheritanceRule : AbstractRule("inheritance-rule") {
 
     private val allowedClasses = listOf(
-        "Fragment", "Activity"
+        "Fragment", "Activity", "View", "ViewGroup", "ViewModel"
     )
 
     override fun visitClass(
@@ -29,7 +29,7 @@ class InheritanceRule : AbstractRule("inheritance-rule") {
                 it is KtSuperTypeCallEntry
             }?.let {
                 if (ktClass.isAbstractClass() && !allowedClasses.any { allowedClass ->
-                        it.typeReference?.nameForReceiverLabel()?.contains(allowedClass) == true
+                        it.typeReference?.nameForReceiverLabel() == allowedClass
                     }) {
                     emit(
                         ktClass.startOffset,
