@@ -1,13 +1,13 @@
 package com.velvet.rules
 
-import com.velvet.rules.core.AndroidRule
+import com.velvet.rules.core.AbstractRule
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-class FunctionsRule : AndroidRule("functions-rule") {
+class FunctionsRule : AbstractRule("functions-rule") {
 
     private val allowedMembers = 5
 
