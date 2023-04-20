@@ -15,9 +15,7 @@ class OopOnlyClassesRule : AbstractRule("only-oop-rules") {
     ) {
         if (ktClass.canBeParent() && !ktClass.isAbstractClass()) {
             emit(
-                ktClass.startOffset,
-                "Do not use enum, sealed or open class",
-                false
+                ktClass.startOffset, "Do not use enum, sealed or open class", false
             )
         }
     }

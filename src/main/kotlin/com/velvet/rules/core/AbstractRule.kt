@@ -6,6 +6,8 @@ import org.jetbrains.kotlin.psi.KtClass
 
 abstract class AbstractRule(id: String) : Rule(id) {
 
+    private val skippedAnnotation = listOf("Entity")
+
     open fun visitClass(
         ktClass: KtClass,
         autoCorrect: Boolean,
@@ -23,9 +25,13 @@ abstract class AbstractRule(id: String) : Rule(id) {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        (node.psi as? KtClass)?.let {
-            if (it.isInterface()) visitInterface(it, autoCorrect, emit)
-            else visitClass(it, autoCorrect, emit)
+        (node.psi as? KtClass)?.let { ktClass ->
+            if (ktClass.isInterface()) {
+                visitInterface(ktClass, autoCorrect, emit)
+            } else if (!ktClass.annotationEntries.any { it.typeReference?.text in skippedAnnotation }) {
+                visitClass(ktClass, autoCorrect, emit)
+            }
         }
     }
 }
+
