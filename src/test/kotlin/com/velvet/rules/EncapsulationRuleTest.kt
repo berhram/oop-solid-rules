@@ -32,6 +32,21 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
     }
 
     @Test
+    fun `passed because entity`() {
+        assertNoLintErrors(
+            """
+                package com.github.johnnysc.practicetdd
+
+                @Entity(tableName = "user_table")
+                class User(val a: String) {
+
+                    val b: Boolean = false
+                }
+            """
+        )
+    }
+
+    @Test
     fun `passed one private one protected`() {
         assertNoLintErrors(
             """
