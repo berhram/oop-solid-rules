@@ -29,3 +29,4 @@ abstract class AbstractRule(id: String) : Rule(id) {
         }
     }
 }
+

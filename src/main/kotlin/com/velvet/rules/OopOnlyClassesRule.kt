@@ -1,12 +1,12 @@
 package com.velvet.rules
 
-import com.velvet.rules.core.AbstractRule
+import com.velvet.rules.core.AndroidRule
 import com.velvet.rules.core.canBeParent
 import com.velvet.rules.core.isAbstractClass
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-class OopOnlyClassesRule : AbstractRule("only-oop-rules") {
+class OopOnlyClassesRule : AndroidRule("only-oop-rules") {
 
     override fun visitClass(
         ktClass: KtClass,
