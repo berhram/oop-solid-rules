@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-class FunctionsRule : AbstractRule("functions-rule") {
+class FunctionsRule : AbstractRule("oop:functions") {
 
     private val allowedMembers = 5
 
