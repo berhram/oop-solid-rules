@@ -1,10 +1,17 @@
 package com.velvet.rules.core
 
-import com.pinterest.ktlint.core.Rule
+import com.pinterest.ktlint.rule.engine.core.api.Rule
+import com.pinterest.ktlint.rule.engine.core.api.RuleId
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.psi.KtClass
 
-abstract class AbstractRule(id: String) : Rule(id) {
+abstract class AbstractRule(id: String) : Rule(
+    RuleId(id), About(
+        maintainer = "berhram",
+        repositoryUrl = "https://github.com/berhram/oop-solid-rules",
+        issueTrackerUrl = "https://github.com/berhram/oop-solid-rules/issues"
+    )
+) {
 
     private val skippedAnnotation = listOf("Entity")
 
