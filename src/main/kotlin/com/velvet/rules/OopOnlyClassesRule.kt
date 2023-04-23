@@ -6,7 +6,7 @@ import com.velvet.rules.core.isAbstractClass
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-class OopOnlyClassesRule : AbstractRule("only-oop-rules") {
+class OopOnlyClassesRule : AbstractRule("oop:classes") {
 
     override fun visitClass(
         ktClass: KtClass,

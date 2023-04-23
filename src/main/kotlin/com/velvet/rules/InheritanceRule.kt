@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtSuperTypeCallEntry
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-class InheritanceRule : AbstractRule("inheritance-rule") {
+class InheritanceRule : AbstractRule("oop:inheritance") {
 
     private val allowedClasses = listOf(
         "Fragment", "Activity", "View", "ViewGroup", "ViewModel"

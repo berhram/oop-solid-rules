@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 import org.jetbrains.kotlin.psi.psiUtil.visibilityModifierTypeOrDefault
 
-class EncapsulationRule : AbstractRule("encapsulation-rule") {
+class EncapsulationRule : AbstractRule("oop:encapsulation") {
 
     override fun visitClass(
         ktClass: KtClass,
