@@ -24,7 +24,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello6()
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -38,7 +38,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello(a: String, b: String, c: String, d: String, e: String, f: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -52,7 +52,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello(a: String, b: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -66,7 +66,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     override fun hello(a: String, b: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -88,7 +88,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello5()
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -102,7 +102,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello(a: String, b: String, c: String, d: String, e: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -123,7 +123,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     @Test
                     fun hello(a: String) {}
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -171,7 +171,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     @HTTP("hello")
                     fun hello8(a: String, b: String, c: String, d: String, e: String, f: String, g: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 }

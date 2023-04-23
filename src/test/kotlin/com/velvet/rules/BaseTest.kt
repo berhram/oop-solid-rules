@@ -1,22 +1,29 @@
 package com.velvet.rules
 
-import com.pinterest.ktlint.core.Rule
-import com.pinterest.ktlint.core.RuleProvider
-import com.pinterest.ktlint.test.lint
+import com.pinterest.ktlint.rule.engine.core.api.Rule
+import com.pinterest.ktlint.rule.engine.core.api.RuleProvider
+import com.pinterest.ktlint.test.KtLintAssertThat
 import org.intellij.lang.annotations.Language
-import org.junit.jupiter.api.Assertions.assertTrue
 
 abstract class BaseTest(rule: Rule) {
 
-    private val provider = setOf(RuleProvider { rule })
+    private val provider = RuleProvider { rule }
 
     protected fun assertNoLintErrors(@Language("kotlin") code: String) {
-        val errors = provider.lint(code.trimIndent())
-        assertTrue(errors.isEmpty(), errors.toString())
+        KtLintAssertThat(
+            ruleProvider = provider,
+            code = code,
+            additionalRuleProviders = mutableSetOf(),
+            editorConfigProperties = mutableSetOf()
+        ).hasNoLintViolations()
     }
 
     protected fun assertLintErrors(@Language("kotlin") code: String) {
-        val errors = provider.lint(code.trimIndent())
-        assertTrue(errors.isNotEmpty())
+        KtLintAssertThat(
+            ruleProvider = provider,
+            code = code,
+            additionalRuleProviders = mutableSetOf(),
+            editorConfigProperties = mutableSetOf()
+        ).hasLintViolations()
     }
 }
