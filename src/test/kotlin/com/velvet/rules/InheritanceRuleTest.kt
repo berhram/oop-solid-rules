@@ -17,7 +17,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 interface SomeInterface2
 
                 class Repository : SomeClass(), SomeInterface, SomeInterface2
-            """
+            """.trimIndent()
         )
     }
 
@@ -30,7 +30,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 interface SomeClass
 
                 class Repository : SomeClass
-            """
+            """.trimIndent()
         )
     }
 
@@ -43,7 +43,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 open class SomeClass
 
                 class Repository : SomeClass()
-            """
+            """.trimIndent()
         )
     }
 
@@ -56,7 +56,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class SomeClass(a: String, b: Boolean)
 
                 class Repository(a: String, b: Boolean) : SomeClass(a, b)
-            """
+            """.trimIndent()
         )
     }
 
@@ -75,7 +75,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class BaseActivity : Activity()
 
                 abstract class BaseViewModel : ViewModel()
-            """
+            """.trimIndent()
         )
     }
 
@@ -88,7 +88,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 interface Repository
 
                 abstract class AnotherAR : Repository
-            """
+            """.trimIndent()
         )
     }
 
@@ -99,7 +99,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 package com.github.johnnysc.practicetdd
 
                 class RepositoryTest
-            """
+            """.trimIndent()
         )
     }
 
@@ -110,7 +110,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 package com.github.johnnysc.practicetdd
 
                 class Repository
-            """
+            """.trimIndent()
         )
     }
 
@@ -125,7 +125,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class AnotherAR : AbstractRepository()
 
                 abstract class AnotherBaseFragment : BaseFragment()
-            """
+            """.trimIndent()
         )
     }
 
@@ -136,7 +136,7 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 package com.github.johnnysc.practicetdd
 
                 abstract class AnotherBaseFragment : BaseFragment()
-            """
+            """.trimIndent()
         )
     }
 }

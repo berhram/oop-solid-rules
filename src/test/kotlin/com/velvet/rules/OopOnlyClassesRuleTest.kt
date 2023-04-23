@@ -15,7 +15,7 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     
                     object John : Person()
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -29,7 +29,7 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     
                     JOHN, NICK
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -40,7 +40,7 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
                 package com.velvet.rules
 
                 open class Person
-            """
+            """.trimIndent()
         )
     }
 
@@ -51,7 +51,7 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
                 package com.velvet.rules
 
                 class Person
-            """
+            """.trimIndent()
         )
     }
 }

@@ -1,12 +1,11 @@
 package com.velvet.rules.core
 
-import com.pinterest.ktlint.core.Rule
-import com.pinterest.ktlint.core.RuleProvider
-import com.pinterest.ktlint.core.RuleSetProviderV2
+import com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3
+import com.pinterest.ktlint.rule.engine.core.api.Rule
+import com.pinterest.ktlint.rule.engine.core.api.RuleProvider
+import com.pinterest.ktlint.rule.engine.core.api.RuleSetId
 
-abstract class AbstractRuleSetProvider(
-    id: String, about: About
-) : RuleSetProviderV2(id, about) {
+abstract class AbstractRuleSetProvider(id: String) : RuleSetProviderV3(RuleSetId(id)) {
 
     abstract val rules: Set<Rule>
 
