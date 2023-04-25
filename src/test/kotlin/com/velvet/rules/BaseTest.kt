@@ -1,18 +1,20 @@
 package com.velvet.rules
 
 import com.pinterest.ktlint.rule.engine.core.api.Rule
-import com.pinterest.ktlint.test.KtLintAssertThat.Companion.assertThatRule
+import com.pinterest.ktlint.test.KtLintAssertThat
+import com.pinterest.ktlint.test.LintViolation
 import org.intellij.lang.annotations.Language
 
-abstract class BaseTest(rule: Rule) {
+abstract class BaseTest(private val rule: Rule) {
 
-    private val assertRule = assertThatRule { rule }
+    private val assertRule = KtLintAssertThat.assertThatRule { rule }
 
     protected fun assertNoLintErrors(@Language("kotlin") code: String) {
-        assertRule(code).hasNoLintViolations()
+        assertRule(code).hasNoLintViolationsForRuleId(rule.ruleId)
+
     }
 
-    protected fun assertLintErrors(@Language("kotlin") code: String) {
-        assertRule(code).hasLintViolations()
+    protected fun assertLintErrors(@Language("kotlin") code: String, vararg violations: LintViolation) {
+        assertRule(code).hasLintViolationsWithoutAutoCorrect(*violations)
     }
 }
