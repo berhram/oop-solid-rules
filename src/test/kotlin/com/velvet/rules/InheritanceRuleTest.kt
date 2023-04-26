@@ -1,5 +1,6 @@
 package com.velvet.rules
 
+import com.pinterest.ktlint.test.LintViolation
 import org.junit.jupiter.api.Test
 
 class InheritanceRuleTest : BaseTest(InheritanceRule()) {
@@ -110,7 +111,8 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 package com.github.johnnysc.practicetdd
 
                 class Repository
-            """.trimIndent()
+            """.trimIndent(),
+            LintViolation(line = 3, col = 1, detail = "The class Repository must be inherited")
         )
     }
 
@@ -125,7 +127,13 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class AnotherAR : AbstractRepository()
 
                 abstract class AnotherBaseFragment : BaseFragment()
-            """.trimIndent()
+            """.trimIndent(),
+            LintViolation(line = 5, col = 1, detail = "The class AnotherAR should not be inherited from another class"),
+            LintViolation(
+                line = 7,
+                col = 1,
+                detail = "The class AnotherBaseFragment should not be inherited from another class"
+            )
         )
     }
 
@@ -136,7 +144,9 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 package com.github.johnnysc.practicetdd
 
                 abstract class AnotherBaseFragment : BaseFragment()
-            """.trimIndent()
+            """.trimIndent(), LintViolation(
+                line = 3, col = 1, detail = "The class AnotherBaseFragment should not be inherited from another class"
+            )
         )
     }
 }
