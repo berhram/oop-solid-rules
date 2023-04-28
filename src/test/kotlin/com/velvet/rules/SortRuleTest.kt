@@ -6,6 +6,29 @@ import org.junit.jupiter.api.Test
 class SortRuleTest : BaseTest(SortRule()) {
 
     @Test
+    fun valid() {
+        assertNoLintErrors(
+            """
+                class Person(val id: String) {
+                
+                    init { }
+                
+                    val prop = "prop"
+
+                    constructor(robotId: Int) : this(id = "John${'$'}robotId")
+
+                    fun hello() = Unit
+
+                    companion object {
+
+                        val propConst = "prop"
+                    }
+                }
+            """.trimIndent()
+        )
+    }
+
+    @Test
     fun `invalid when not sorted`() {
         assertLintErrors(
             """
@@ -82,8 +105,7 @@ class SortRuleTest : BaseTest(SortRule()) {
                 fun hello() = Unit
                 constructor(robotId: Int) : this(id = "John${'$'}robotId")
             }
-        """.trimIndent(),
-            LintViolation(line = 3, col = 5, detail = "The constructor is not in the expected order")
+        """.trimIndent(), LintViolation(line = 3, col = 5, detail = "The constructor is not in the expected order")
         )
     }
 
@@ -97,8 +119,7 @@ class SortRuleTest : BaseTest(SortRule()) {
                 }
                 constructor(robotId: Int) : this(id = "John${'$'}robotId")
             }
-        """.trimIndent(),
-            LintViolation(line = 5, col = 5, detail = "The constructor is not in the expected order")
+        """.trimIndent(), LintViolation(line = 5, col = 5, detail = "The constructor is not in the expected order")
         )
     }
 
@@ -112,8 +133,7 @@ class SortRuleTest : BaseTest(SortRule()) {
                 }
                 fun hello() = Unit
             }
-        """.trimIndent(),
-            LintViolation(line = 5, col = 5, detail = "The fun hello is not in the expected order")
+        """.trimIndent(), LintViolation(line = 5, col = 5, detail = "The fun hello is not in the expected order")
         )
     }
 }
