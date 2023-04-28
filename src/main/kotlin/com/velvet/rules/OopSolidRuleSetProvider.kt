@@ -5,11 +5,12 @@ import com.pinterest.ktlint.rule.engine.core.api.RuleProvider
 import com.pinterest.ktlint.rule.engine.core.api.RuleSetId
 
 class OopSolidRuleSetProvider : RuleSetProviderV3(RuleSetId("oop")) {
-    
+
     override fun getRuleProviders(): Set<RuleProvider> = setOf(
         RuleProvider { EncapsulationRule() },
         RuleProvider { InheritanceRule() },
         RuleProvider { OopOnlyClassesRule() },
-        RuleProvider { FunctionsRule() }
+        RuleProvider { FunctionsRule() },
+        RuleProvider { SortRule() }
     )
 }
