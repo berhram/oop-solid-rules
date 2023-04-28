@@ -1,5 +1,6 @@
 package com.velvet.rules
 
+import com.pinterest.ktlint.test.LintViolation
 import org.junit.jupiter.api.Test
 
 class FunctionsRuleTest : BaseTest(FunctionsRule()) {
@@ -24,7 +25,8 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello6()
                 }
-            """
+            """.trimIndent(),
+            LintViolation(line = 3, col = 1, detail = "The Person interface must not contain more than 5 fun")
         )
     }
 
@@ -38,7 +40,8 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello(a: String, b: String, c: String, d: String, e: String, f: String)
                 }
-            """
+            """.trimIndent(),
+            LintViolation(line = 5, col = 5, detail = "The fun hello must not have more than 5 args")
         )
     }
 
@@ -52,7 +55,8 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello(a: String, b: String)
                 }
-            """
+            """.trimIndent(),
+            LintViolation(line = 5, col = 5, detail = "You must override the hello from the interface")
         )
     }
 
@@ -66,7 +70,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     override fun hello(a: String, b: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -88,7 +92,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello5()
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -102,7 +106,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     
                     fun hello(a: String, b: String, c: String, d: String, e: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -123,7 +127,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     @Test
                     fun hello(a: String) {}
                 }
-            """
+            """.trimIndent()
         )
     }
 
@@ -171,7 +175,7 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
                     @HTTP("hello")
                     fun hello8(a: String, b: String, c: String, d: String, e: String, f: String, g: String)
                 }
-            """
+            """.trimIndent()
         )
     }
 }

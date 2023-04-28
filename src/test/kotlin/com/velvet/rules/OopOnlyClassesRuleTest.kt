@@ -1,5 +1,6 @@
 package com.velvet.rules
 
+import com.pinterest.ktlint.test.LintViolation
 import org.junit.jupiter.api.Test
 
 
@@ -15,7 +16,8 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     
                     object John : Person()
                 }
-            """
+            """.trimIndent(),
+            LintViolation(line = 3, col = 1, detail = "Do not use enum, sealed or open class")
         )
     }
 
@@ -29,7 +31,8 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
     
                     JOHN, NICK
                 }
-            """
+            """.trimIndent(),
+            LintViolation(line = 3, col = 1, detail = "Do not use enum, sealed or open class")
         )
     }
 
@@ -40,7 +43,8 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
                 package com.velvet.rules
 
                 open class Person
-            """
+            """.trimIndent(),
+            LintViolation(line = 3, col = 1, detail = "Do not use enum, sealed or open class")
         )
     }
 
@@ -51,7 +55,7 @@ class OopOnlyClassesRuleTest : BaseTest(OopOnlyClassesRule()) {
                 package com.velvet.rules
 
                 class Person
-            """
+            """.trimIndent()
         )
     }
 }

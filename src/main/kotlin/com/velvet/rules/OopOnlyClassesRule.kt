@@ -6,7 +6,7 @@ import com.velvet.rules.core.isAbstractClass
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 
-class OopOnlyClassesRule : AbstractRule("only-oop-rules") {
+class OopOnlyClassesRule : AbstractRule("oop:classes") {
 
     override fun visitClass(
         ktClass: KtClass,
@@ -15,9 +15,7 @@ class OopOnlyClassesRule : AbstractRule("only-oop-rules") {
     ) {
         if (ktClass.canBeParent() && !ktClass.isAbstractClass()) {
             emit(
-                ktClass.startOffset,
-                "Do not use enum, sealed or open class",
-                false
+                ktClass.startOffset, "Do not use enum, sealed or open class", false
             )
         }
     }

@@ -1,14 +1,16 @@
 package com.velvet.rules
 
-import com.pinterest.ktlint.core.Rule
-import com.velvet.rules.core.AbstractRuleSetProvider
+import com.pinterest.ktlint.cli.ruleset.core.api.RuleSetProviderV3
+import com.pinterest.ktlint.rule.engine.core.api.RuleProvider
+import com.pinterest.ktlint.rule.engine.core.api.RuleSetId
 
-class OopSolidRuleSetProvider : AbstractRuleSetProvider("oop-solid-rules", NO_ABOUT) {
+class OopSolidRuleSetProvider : RuleSetProviderV3(RuleSetId("oop")) {
 
-    override val rules: Set<Rule> = setOf(
-        EncapsulationRule(),
-        InheritanceRule(),
-        OopOnlyClassesRule(),
-        FunctionsRule()
+    override fun getRuleProviders(): Set<RuleProvider> = setOf(
+        RuleProvider { EncapsulationRule() },
+        RuleProvider { InheritanceRule() },
+        RuleProvider { OopOnlyClassesRule() },
+        RuleProvider { FunctionsRule() },
+        RuleProvider { SortRule() }
     )
 }
