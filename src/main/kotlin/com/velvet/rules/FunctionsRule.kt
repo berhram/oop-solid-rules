@@ -1,6 +1,7 @@
 package com.velvet.rules
 
 import com.velvet.rules.core.AbstractRule
+import com.velvet.rules.core.isAbstractClass
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFunction
@@ -24,11 +25,11 @@ class FunctionsRule : AbstractRule("oop:functions") {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        val functions = ktClass.declarations.mapNotNull { it as? KtNamedFunction }
+        val functions = ktClass.declarations.mapNotNull { it as? KtNamedFunction }.filter { !it.annotationEntries.any { annot ->
+            annot.typeReference?.text in testAnnotation
+        } }
         functions.forEach {
-            if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD) && !it.annotationEntries.any { annot ->
-                    annot.typeReference?.text in testAnnotation
-                }) {
+            if (!it.hasModifier(KtTokens.OVERRIDE_KEYWORD) && !(it.hasModifier(KtTokens.ABSTRACT_KEYWORD) && it.hasModifier(KtTokens.PROTECTED_KEYWORD))) {
                 emit(
                     it.startOffset, "You must override the ${it.name} from the interface", false
                 )
