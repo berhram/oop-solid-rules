@@ -12,7 +12,7 @@
 
 ## Functions
 
-- Classes' functions must be overridden from interfaces / abstract classes, if it is not a unit test or if it is not `protected` + `abstract`
+- Classes' functions must be overridden from interfaces / abstract classes, if it is not a unit test
 - Interface cannot contain functions with default implementation
 - Interface cannot contain more than 5 functions
 - Function cannot have more than 5 parameters if it is not Retrofit service
