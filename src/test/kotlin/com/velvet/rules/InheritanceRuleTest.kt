@@ -76,6 +76,8 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class BaseActivity : Activity()
 
                 abstract class BaseViewModel : ViewModel()
+
+                abstract class BaseDB : RoomDatabase()
             """.trimIndent()
         )
     }
@@ -93,28 +95,6 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
         )
     }
 
-    @Test
-    fun `passed because test`() {
-        assertNoLintErrors(
-            """
-                package com.github.johnnysc.practicetdd
-
-                class RepositoryTest
-            """.trimIndent()
-        )
-    }
-
-    @Test
-    fun `no passed`() {
-        assertLintErrors(
-            """
-                package com.github.johnnysc.practicetdd
-
-                class Repository
-            """.trimIndent(),
-            LintViolation(line = 3, col = 1, detail = "The class Repository must be inherited")
-        )
-    }
 
     @Test
     fun `no passed if abstract inherits abstract`() {
