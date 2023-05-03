@@ -33,10 +33,12 @@ abstract class AbstractRule(id: String) : Rule(
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
         (node.psi as? KtClass)?.let { ktClass ->
-            if (ktClass.isInterface()) {
-                visitInterface(ktClass, autoCorrect, emit)
-            } else if (!ktClass.annotationEntries.any { it.typeReference?.text in skippedAnnotation }) {
-                visitClass(ktClass, autoCorrect, emit)
+            if (ktClass.name?.endsWith("Test") == false) {
+                if (ktClass.isInterface()) {
+                    visitInterface(ktClass, autoCorrect, emit)
+                } else if (!ktClass.annotationEntries.any { it.typeReference?.text in skippedAnnotation }) {
+                    visitClass(ktClass, autoCorrect, emit)
+                }
             }
         }
     }
