@@ -78,6 +78,8 @@ class InheritanceRuleTest : BaseTest(InheritanceRule()) {
                 abstract class BaseViewModel : ViewModel()
 
                 abstract class BaseDB : RoomDatabase()
+
+                abstract class Holder(view: View) : RecyclerView.ViewHolder(view)
             """.trimIndent()
         )
     }

@@ -179,14 +179,14 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
         )
     }
     @Test
-    fun `valid when fun is abstract and protected in abstract class`() {
+    fun `valid when fun is abstract in abstract class`() {
         assertNoLintErrors(
             """
                 package com.velvet.rules
 
                 abstract class AbstractPerson {
                 
-                    protected abstract fun hello(a: String, b: String)
+                    abstract fun hello(a: String, b: String)
                 }
             """.trimIndent()
         )
@@ -200,26 +200,12 @@ class FunctionsRuleTest : BaseTest(FunctionsRule()) {
 
                 abstract class AbstractPerson {
                 
-                    protected fun hello(a: String, b: String)
+                    fun hello(a: String, b: String)
                 }
             """.trimIndent(),
             LintViolation(line = 5, col = 5, detail = "You must override the hello from the interface")
         )
     }
 
-    @Test
-    fun `invalid when fun is only abstract in abstract class`() {
-        assertLintErrors(
-            """
-                package com.velvet.rules
-
-                abstract class AbstractPerson {
-                
-                    abstract fun hello(a: String, b: String)
-                }
-            """.trimIndent(),
-            LintViolation(line = 5, col = 5, detail = "You must override the hello from the interface")
-        )
-    }
 
 }

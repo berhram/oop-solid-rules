@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.psi.psiUtil.startOffset
 class InheritanceRule : AbstractRule("oop:inheritance") {
 
     private val allowedClasses = listOf(
-        "Fragment", "Activity", "View", "ViewGroup", "ViewModel", "RoomDatabase"
+        "Fragment", "Activity", "View", "ViewGroup", "ViewModel", "RoomDatabase", "ViewHolder"
     )
 
     override fun visitClass(
