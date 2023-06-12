@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.velvet.rules"
-version = "v0.13"
+version = "v0.18"
 
 repositories {
     mavenCentral()
