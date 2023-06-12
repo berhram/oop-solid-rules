@@ -8,7 +8,6 @@ class OopSolidRuleSetProvider : RuleSetProviderV3(RuleSetId("oop")) {
 
     override fun getRuleProviders(): Set<RuleProvider> = setOf(
         RuleProvider { EncapsulationRule() },
-        RuleProvider { InheritanceRule() },
         RuleProvider { OopOnlyClassesRule() },
         RuleProvider { FunctionsRule() },
         RuleProvider { SortRule() }
